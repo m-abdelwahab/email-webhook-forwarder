@@ -9,6 +9,7 @@ const zodEnv = z.object({
   CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string(),
   CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string(),
   CLERK_SIGN_UP_URL: z.string(),
+  PORT: z.string(),
 });
 
 declare global {
