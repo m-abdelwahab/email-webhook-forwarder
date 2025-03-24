@@ -1,26 +1,46 @@
-# Stage 1: Development dependencies
-FROM oven/bun:1.0.30-alpine AS development-dependencies-env
-COPY . /app
+# syntax = docker/dockerfile:1
+
+# Adjust BUN_VERSION as desired
+ARG BUN_VERSION=1.2.5
+FROM oven/bun:${BUN_VERSION}-slim AS base
+
+LABEL fly_launch_runtime="Bun"
+
+# Bun app lives here
 WORKDIR /app
+
+# Set production environment
+ENV NODE_ENV="production"
+
+
+# Throw-away build stage to reduce size of final image
+FROM base AS build
+
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential pkg-config python-is-python3
+
+# Install node modules
+COPY bun.lock package.json ./
 RUN bun install
 
-# Stage 2: Production dependencies
-FROM oven/bun:1.0.30-alpine AS production-dependencies-env
-COPY bun.lockb package.json /app/
-WORKDIR /app
-RUN bun install --production
+# Copy application code
+COPY . .
 
-# Stage 3: Build
-FROM oven/bun:1.0.30-alpine AS build-env
-COPY . /app
-COPY --from=development-dependencies-env /app/bun.lockb /app/bun.lockb
-WORKDIR /app
-RUN bun run build
+# Build application
+RUN bun --bun run build
 
-# Stage 4: Final production image
-FROM oven/bun:1.0.30-alpine
-COPY bun.lockb package.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
-WORKDIR /app
-CMD ["bun", "run", "start"]
+# Remove development dependencies
+RUN rm -rf node_modules && \
+    bun install --ci
+
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+CMD [ "bun", "run", "start" ]
