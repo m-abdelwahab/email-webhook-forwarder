@@ -1,0 +1,247 @@
+@import "tailwindcss";
+@import "./animations.css";
+@plugin "tailwindcss-react-aria-components";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/inter-variable.woff2') format('woff2');
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: 'Inter', sans-serif;
+    font-optical-sizing: auto;
+  }
+}
+
+:root {
+  font-family: 'Inter', sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+html[data-theme='light'] {
+  /* Muted */
+  --gray-1: #fcfcfc;
+  --gray-2: #f9f9f9;
+  --gray-3: #f0f0f0;
+  --gray-4: #e8e8e8;
+  --gray-5: #e0e0e0;
+  --gray-6: #d9d9d9;
+  --gray-7: #cecece;
+  --gray-8: #bbbbbb;
+  --gray-9: #8d8d8d;
+  --gray-10: #838383;
+  --gray-11: #646464;
+  --gray-12: #202020;
+
+  /* Primary */
+  --indigo-1: #fdfdfe;
+  --indigo-2: #f7f9ff;
+  --indigo-3: #edf2fe;
+  --indigo-4: #e1e9ff;
+  --indigo-5: #d2deff;
+  --indigo-6: #c1d0ff;
+  --indigo-7: #abbdf9;
+  --indigo-8: #8da4ef;
+  --indigo-9: #3e63dd;
+  --indigo-10: #3358d4;
+  --indigo-11: #3a5bc7;
+  --indigo-12: #1f2d5c;
+
+  /* Success */
+  --green-1: #fbfefc;
+  --green-2: #f4fbf6;
+  --green-3: #e6f6eb;
+  --green-4: #d6f1df;
+  --green-5: #c4e8d1;
+  --green-6: #adddc0;
+  --green-7: #8eceaa;
+  --green-8: #5bb98b;
+  --green-9: #30a46c;
+  --green-10: #2b9a66;
+  --green-11: #218358;
+  --green-12: #193b2d;
+
+  /* Warning */
+  --amber-1: #fefdfb;
+  --amber-2: #fefbe9;
+  --amber-3: #fff7c2;
+  --amber-4: #ffee9c;
+  --amber-5: #fbe577;
+  --amber-6: #f3d673;
+  --amber-7: #e9c162;
+  --amber-8: #e2a336;
+  --amber-9: #ffc53d;
+  --amber-10: #ffba18;
+  --amber-11: #ab6400;
+  --amber-12: #4f3422;
+
+  /* Danger */
+  --red-1: #fffcfc;
+  --red-2: #fff7f7;
+  --red-3: #feebec;
+  --red-4: #ffdbdc;
+  --red-5: #ffcdce;
+  --red-6: #fdbdbe;
+  --red-7: #f4a9aa;
+  --red-8: #eb8e90;
+  --red-9: #e5484d;
+  --red-10: #dc3e42;
+  --red-11: #ce2c31;
+  --red-12: #641723;
+
+}
+
+:root,
+html[data-theme='dark'] {
+  /* Muted */
+  --gray-1: #111111;
+  --gray-2: #191919;
+  --gray-3: #222222;
+  --gray-4: #2a2a2a;
+  --gray-5: #313131;
+  --gray-6: #3a3a3a;
+  --gray-7: #484848;
+  --gray-8: #606060;
+  --gray-9: #6e6e6e;
+  --gray-10: #7b7b7b;
+  --gray-11: #b4b4b4;
+  --gray-12: #eeeeee;
+
+  /* Primary */
+  --indigo-1: #11131f;
+  --indigo-2: #141726;
+  --indigo-3: #182449;
+  --indigo-4: #1d2e62;
+  --indigo-5: #253974;
+  --indigo-6: #304384;
+  --indigo-7: #3a4f97;
+  --indigo-8: #435db1;
+  --indigo-9: #3e63dd;
+  --indigo-10: #5472e4;
+  --indigo-11: #9eb1ff;
+  --indigo-12: #d6e1ff;
+
+  /* Success */
+  --green-1: #0e1512;
+  --green-2: #121b17;
+  --green-3: #132d21;
+  --green-4: #113b29;
+  --green-5: #174933;
+  --green-6: #20573e;
+  --green-7: #28684a;
+  --green-8: #2f7c57;
+  --green-9: #30a46c;
+  --green-10: #33b074;
+  --green-11: #3dd68c;
+  --green-12: #b1f1cb;
+
+  /* Warning */
+  --amber-1: #16120c;
+  --amber-2: #1d180f;
+  --amber-3: #302008;
+  --amber-4: #3f2700;
+  --amber-5: #4d3000;
+  --amber-6: #5c3d05;
+  --amber-7: #714f19;
+  --amber-8: #8f6424;
+  --amber-9: #ffc53d;
+  --amber-10: #ffd60a;
+  --amber-11: #ffca16;
+  --amber-12: #ffe7b3;
+
+  /* Danger */
+  --red-1: #191111;
+  --red-2: #201314;
+  --red-3: #3b1219;
+  --red-4: #500f1c;
+  --red-5: #611623;
+  --red-6: #72232d;
+  --red-7: #8c333a;
+  --red-8: #b54548;
+  --red-9: #e5484d;
+  --red-10: #ec5d5e;
+  --red-11: #ff9592;
+  --red-12: #ffd1d9;
+}
+
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-primary-app: var(--indigo-1);
+  --color-primary-app-subtle: var(--indigo-2);
+  --color-primary-element: var(--indigo-3);
+  --color-primary-element-hover: var(--indigo-4);
+  --color-primary-element-active: var(--indigo-5);
+  --color-primary: var(--indigo-6);
+  --color-primary-hover: var(--indigo-7);
+  --color-primary-active: var(--indigo-8);
+  --color-primary-solid: var(--indigo-9);
+  --color-primary-solid-hover: var(--indigo-10);
+  --color-primary-base: var(--indigo-11);
+  --color-primary-high-contrast: var(--indigo-12);
+
+  --color-muted-app: var(--gray-1);
+  --color-muted-app-subtle: var(--gray-2);
+  --color-muted-element: var(--gray-3);
+  --color-muted-element-hover: var(--gray-4);
+  --color-muted-element-active: var(--gray-5);
+  --color-muted: var(--gray-6);
+  --color-muted-hover: var(--gray-7);
+  --color-muted-active: var(--gray-8);
+  --color-muted-solid: var(--gray-9);
+  --color-muted-solid-hover: var(--gray-10);
+  --color-muted-base: var(--gray-11);
+  --color-muted-high-contrast: var(--gray-12);
+
+  --color-warning-app: var(--amber-1);
+  --color-warning-app-subtle: var(--amber-2);
+  --color-warning-element: var(--amber-3);
+  --color-warning-element-hover: var(--amber-4);
+  --color-warning-element-active: var(--amber-5);
+  --color-warning: var(--amber-6);
+  --color-warning-hover: var(--amber-7);
+  --color-warning-active: var(--amber-8);
+  --color-warning-solid: var(--amber-9);
+  --color-warning-solid-hover: var(--amber-10);
+  --color-warning-base: var(--amber-11);
+  --color-warning-high-contrast: var(--amber-12);
+
+  --color-success-app: var(--green-1);
+  --color-success-app-subtle: var(--green-2);
+  --color-success-element: var(--green-3);
+  --color-success-element-hover: var(--green-4);
+  --color-success-element-active: var(--green-5);
+  --color-success: var(--green-6);
+  --color-success-hover: var(--green-7);
+  --color-success-active: var(--green-8);
+  --color-success-solid: var(--green-9);
+  --color-success-solid-hover: var(--green-10);
+  --color-success-base: var(--green-11);
+  --color-success-high-contrast: var(--green-12);
+
+  --color-danger-app: var(--red-1);
+  --color-danger-app-subtle: var(--red-2);
+  --color-danger-element: var(--red-3);
+  --color-danger-element-hover: var(--red-4);
+  --color-danger-element-active: var(--red-5);
+  --color-danger: var(--red-6);
+  --color-danger-hover: var(--red-7);
+  --color-danger-active: var(--red-8);
+  --color-danger-solid: var(--red-9);
+  --color-danger-solid-hover: var(--red-10);
+  --color-danger-base: var(--red-11);
+  --color-danger-high-contrast: var(--red-12);
+}
